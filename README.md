@@ -6,7 +6,7 @@ L'applicazione consente di gestire, manutenere ed ottenere infomazioni attravers
 ha frequentato il progetto "Alternanza Scuola - Lavoro".
 
 L'applicazione scritta in Core PHP, è stata testata su entrambe le macchine Linux e Windows con Apache2.4 e PHP 7.
-La parte front-end, grafica viene sviluppata, in parte, grazie alla libreria CSS di Bootstrap e della libreria JavaScript chiamata jQuery;
+La parte front-end, grafica viene sviluppata, in parte, grazie alla libreria CSS di Bootstrap e alla libreria JavaScript chiamata jQuery;
 il tutto viene esposto dinamicamente anche attraverso la tecnologia AJAX.
 
 I dati vengono salvati in un database "complesso" sviluppato attraverso uno studio appreso in classe.
