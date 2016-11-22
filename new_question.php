@@ -1,9 +1,9 @@
 <?php
 	session_start();
-	require 'connection.php';
+	require __DIR__.'/connection.php';
 	
 	if(isset($_SESSION["login"])){
-		$result = $conn->query("SELECT id_classe FROM Iscritto, Studenti WHERE Studenti.matricola = Iscritto.matricola AND Studenti.matricola =" .$_SESSION["login"]["matricola"]. "");
+		$result = $conn->query("SELECT id_classe FROM iscritto, studenti WHERE studenti.matricola = iscritto.matricola AND studenti.matricola =" .$_SESSION["login"]["matricola"]. "");
 		$record = $result->fetch_assoc();
 		
 		if(isset($_SESSION["quest"]))
@@ -14,7 +14,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<?php require '/essentials/head.php'?>
+		<?php require __DIR__.'/essentials/head.php'?>
 		<link rel="stylesheet" type="text/css" href="css/main.css" >
 		<script>
 			$(document).ready(function(){
@@ -87,23 +87,23 @@
 											
 												// RITORNA SOLO LE AZIENDE A CUI NON HA ANCORA VALUTATO
 												$result = $conn->query("SELECT *
-																		FROM 	(SELECT Partecipa.*, entiaziende.id_enteazienda as id_azienda, entiaziende.nome as azienda_nome
-																				FROM 	Stage, Partecipa, EntiAziende
-																				WHERE 	Stage.id_stage = Partecipa.id_stage AND
-																						EntiAziende.id_enteazienda = Stage.id_enteazienda) AS R
+																		FROM 	(SELECT partecipa.*, entiaziende.id_enteazienda as id_azienda, entiaziende.nome as azienda_nome
+																				FROM 	stage, partecipa, entiaziende
+																				WHERE 	stage.id_stage = partecipa.id_stage AND
+																						entiaziende.id_enteazienda = stage.id_enteazienda) AS r
 															
 																		LEFT JOIN
-																				(SELECT A.ID_Autovalutazione, Matricola, A.ID_Stage 
-																				FROM Vota, Autovalutazioni as A 
-																				WHERE Vota.ID_Autovalutazione = A.ID_Autovalutazione
-																				GROUP BY A.ID_Autovalutazione) AS T
-																		ON R.matricola = T.matricola
+																				(SELECT a.ID_Autovalutazione, Matricola, a.ID_Stage
+																				FROM vota, autovalutazioni as a
+																				WHERE vota.ID_Autovalutazione = A.ID_Autovalutazione
+																				GROUP BY a.ID_Autovalutazione) AS t
+																		ON r.matricola = t.matricola
 																		WHERE ID_Autovalutazione IS NULL AND
-																		R.matricola = ".$_SESSION["login"]["matricola"]);
-												
-												while($record = $result->fetch_assoc()){
+																		r.matricola = ".$_SESSION["login"]["matricola"]);
+
+												foreach($result as $record){
 													echo "<option value=\"".$record["id_azienda"]."\">".$record["azienda_nome"]."</option>";
-												}
+                                                }
 											?>
 										</select>
 									</div>
@@ -117,7 +117,7 @@
 										<label for="attivita">Attivita': </label>
 										<input type="text" class="form-control" value="" id="attivita" name="attivita" readyonly>
 									</div>
-									
+
 									<div class="form-group">
 										<label for="professore">Tutor Interno: </label>
 										<input type="text" class="form-control" value="" id="professore" name="professore" readonly>

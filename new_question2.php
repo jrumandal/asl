@@ -1,4 +1,5 @@
-<?php 
+<?php
+    $baseurl = "https://ralphumandal.ddns.net/autoval/";
 	if(!isset($_POST["btn-continue"])
 			||!isset($_POST["studente"])
 			||!isset($_POST["classe"])
@@ -7,7 +8,7 @@
 			||!isset($_POST["attivita"])
 			||!isset($_POST["professore"])
 			||!isset($_POST["tutoraziendale"])){
-		header("Location: /home.php");
+		header('location: '.$baseurl.'home.php');
 		exit;
 	}
 	
@@ -19,7 +20,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<?php require '/essentials/head.php'?>
+		<?php require __DIR__.'/essentials/head.php'?>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
   	</head>
   	<body>
@@ -38,7 +39,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<form id="" action="/process.php" method="post" role="form">
-									<?php require 'load_questions.php';?>
+									<?php require __DIR__.'load_questions.php';?>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">

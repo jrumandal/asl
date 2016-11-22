@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-		<?php require '/essentials/head.php';?>
+		<?php require __DIR__.'/essentials/head.php';?>
 		<!-- Website CSS style -->
 		<link rel="stylesheet" type="text/css" href="css/main.css" >
 
@@ -92,7 +92,7 @@
 												<option value="" selected>Specializzazione</option>
 												<?php 
 													require 'connection.php';
-													$result = $conn->query("SELECT * FROM Specializzazioni");
+													$result = $conn->query("SELECT * FROM specializzazioni");
 													while($record = $result->fetch_assoc()){
 														echo "<option value=\"".$record["ID_Specializzazione"]."\">".$record["Descrizione"]."</option>";
 													}

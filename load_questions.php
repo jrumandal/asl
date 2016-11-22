@@ -3,7 +3,7 @@
 	require 'connection.php';
 
 	
-	$query = "SELECT * FROM Domande";
+	$query = "SELECT * FROM domande";
 	$result = $conn->query($query);
 	
 	while($row = $result->fetch_assoc()){

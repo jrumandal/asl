@@ -14,4 +14,4 @@
 	//se non stabilisce la connessione avverti
 	if($conn->connect_error)
 		die("<div class=\"alert alert-warning\"><strong>Attenzione!</strong> Errore di connessione al database. $conn->connect_error</div>");
-    $baseurl = "ralphumandal.ddns.net/autoval/";
+    $baseurl = "https://ralphumandal.ddns.net/autoval/";

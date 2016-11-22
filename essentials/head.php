@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 */
 
-$baseurl = "ralphumandal.ddns.net/autoval/";
+$baseurl = "https://ralphumandal.ddns.net/autoval/";
 ?>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

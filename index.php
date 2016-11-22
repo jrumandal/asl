@@ -1,5 +1,5 @@
 <?php
-        $baseurl = "ralphumandal.ddns.net/autoval/";
+        $baseurl = "https://ralphumandal.ddns.net/autoval/";
 		session_start();
 		if(isset($_SESSION["login"])){
 			header('location: '.$baseurl.'home.php');
@@ -7,7 +7,7 @@
 		}
 		
 		require_once(__DIR__.'/connection.php');
-		
+
 		//controllo sul bottone, nel caso venga premuto la registrazione...
 		if(isset($_POST["register-submit"])){
 			//estrazione dei dati ricevuti per la registrazione
@@ -20,13 +20,13 @@
 			$codice_verifica = $_POST["codice_verifica"];
 			
 			//verifica validita del codice di registrazione
-			$result = $conn->query("SELECT * FROM CodiciVerifica WHERE Codice=$codice_verifica");
+			$result = $conn->query("SELECT * FROM codiciverifica WHERE codice=$codice_verifica");
 			
 			//verifica se la persona non è registrata
-			$result2 = $conn->query("SELECT * FROM Studenti WHERE nome=$nome AND cognome=$cognome");
+			$result2 = $conn->query("SELECT * FROM studenti WHERE nome=$nome AND cognome=$cognome");
 			
 			//verifica se l'account non è ancora registrato
-			$result3 = $conn->query("SELECT * FROM Accouting WHERE user=$username");
+			$result3 = $conn->query("SELECT * FROM accounting WHERE user=$username");
 			
 			
 
@@ -34,29 +34,29 @@
 				$record = $result->fetch_assoc();
 
 				//inizio registrazione se codice non è usato
-				if(!$record["Usato"]){
+				if(!$record["usato"]){
 					//ACCOUNT
-					$stmt = $conn->prepare("INSERT INTO Accounting(user, password, id_rango) VALUES(?,?,1);");
+					$stmt = $conn->prepare("INSERT INTO accounting(user, password, id_rango) VALUES(?,?,1);");
 					$password = md5($password);
 					$stmt->bind_param("ss",$username,$password);
 					$stmt->execute();
 					
 					//STUDENTE
-					$stmt = $conn->prepare("INSERT INTO Studenti(nome,cognome,user) VALUES(?,?,?)");
+					$stmt = $conn->prepare("INSERT INTO studenti(nome,cognome,user) VALUES(?,?,?)");
 					$stmt->bind_param("sss",$nome,$cognome,$username);
 					$stmt->execute();
 
-					$result = $conn->query("SELECT matricola FROM Studenti WHERE nome='$nome' AND cognome='$cognome'");
+					$result = $conn->query("SELECT matricola FROM studenti WHERE nome='$nome' AND cognome='$cognome'");
 					$record = $result->fetch_assoc();
 
 					//ISCRIZIONE ALLA CLASSE
-					$stmt = $conn->prepare("INSERT INTO Iscritto(matricola,id_classe,annoiscrizione) VALUES(?,?,?)");
+					$stmt = $conn->prepare("INSERT INTO iscritto(matricola,id_classe,annoiscrizione) VALUES(?,?,?)");
 					$anno = date("Y");
 					$stmt->bind_param("sss",$record["matricola"],$id_classe, $anno);
 					$stmt->execute();
 
 					//AGGIORNAMENTO TABELLA DEI CODICI
-					$stmt = $conn->prepare("UPDATE CodiciVerifica SET Usato = true WHERE Codice=?");
+					$stmt = $conn->prepare("UPDATE codiciverifica SET usato = true WHERE codice=?");
 					$stmt->bind_param("s",$codice_verifica);
 					$stmt->execute();
 					$GLOBALS["msg"] = "<div style='color: green;'>Registrazione effettuata con successo</div>";
@@ -73,8 +73,8 @@
 			$username = $_POST["username"];
 			$password = $_POST["password"];
 			$query ="	SELECT *
-						FROM Accounting, Ranghi
-						WHERE 	Accounting.ID_Rango = Ranghi.ID_Rango AND
+						FROM accounting, ranghi
+						WHERE 	accounting.ID_Rango = ranghi.ID_Rango AND
 						user = '$username' AND
 						password = md5('$password')";
 
@@ -92,20 +92,20 @@
 					$_SESSION["login"]["time"]= Date("Y-m-d");
 
 
-					$result = $conn->query("SELECT * FROM Studenti WHERE user = '$username'");
+					$result = $conn->query("SELECT * FROM studenti WHERE user = '$username'");
 					$record = $result->fetch_assoc();
 
 					$_SESSION["login"]["nome"] = $record["Nome"];
 					$_SESSION["login"]["cognome"] = $record["Cognome"];
 					$_SESSION["login"]["matricola"] = $record["Matricola"];
 
-					$stmt = $conn->prepare("INSERT INTO Accessi(user,logindate) VALUES(?,?)");
+					$stmt = $conn->prepare("INSERT INTO accessi(user,logindate) VALUES(?,?)");
 					$stmt->bind_param("ss", $_SESSION["login"]["user"], $_SESSION["login"]["time"]);
 
 					$success_login = $stmt->execute();
 
 
-					header("Location: /home.php");
+					header("Location: ".$baseurl."/home.php");
 					exit;
 
 				}
@@ -136,7 +136,7 @@
 			$(document).ready(function(){
 				//AJAX riempimento classe alla selezione della specializzazione
 				$("#specializzazione").change(function(){
-					$("#classe").load("<?=__DIR__?>/riempi.php?id_specializzazione="+$("#specializzazione").val());
+					$("#classe").load("riempi.php?id_specializzazione="+$("#specializzazione").val());
 				});
 
 				$("#codice_verifica").tooltip();
@@ -213,10 +213,11 @@
 												<select class="form-control" name="specializzazione" id="specializzazione" tabindex="3">
 													<option value="" selected>Specializzazione</option>
 													<?php
-													    require_once __DIR__.'/connection.php';
-														$result = $conn->query("SELECT * FROM Specializzazioni");
+                                                        require_once(__DIR__.'/connection.php');
 
-														while($record = $result->fetch_assoc())
+														$result = $conn->query("SELECT * FROM specializzazioni");
+                                                        foreach($result as $record)
+														//while($record = $result->fetch_assoc())
                                                             echo '<option value="' . $record["ID_Specializzazione"].'">'.$record["Descrizione"].'</option>';
 													?>
 												</select>
