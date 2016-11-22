@@ -9,24 +9,33 @@
 								FROM stage as s, entiaziende as ea
 								WHERE s.ID_EnteAzienda = ea.id_enteazienda AND matricolatutorinterno = '$ins_matricola'");
 		
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["id_stage"].">".$record["nome"]."-".
-			$record["attivitasettore"]."-".
-			$record["tutoraziendale"]."</option>";
-		}
-
-	}elseif(isset($_GET["id_specializzazione"])){
-		$result = $conn->query("SELECT * FROM classi WHERE classi.ID_Specializzazione = ".$_GET["id_specializzazione"]);
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["ID_Classe"].">".$record["ID_Classe"]."</option>";
-		}
-		
-	}elseif(isset($_GET["id_azienda"])){
+		foreach($result as $record){?>
+			<option value="<?=$record["id_stage"]?>">
+			    <?=$record["nome"]?> - <?=$record["attivitasettore"]?> - <?=$record["tutoraziendale"]?>
+            </option>
+		<?php
+        }
+    }elseif(isset($_GET["id_specializzazione"])){
+		$result = $conn->query("SELECT *
+                                FROM classi
+                                WHERE classi.ID_Specializzazione = ".$_GET["id_specializzazione"]);
+		foreach($result as $record){?>
+			<option value="<?=$record["ID_Classe"]?>">
+			    <?=$record["ID_Classe"]?>
+            </option>
+        <?php
+        }
+    }elseif(isset($_GET["id_azienda"])){
 		$id_azienda = $_GET["id_azienda"];
-		$result = $conn->query("SELECT id_stage, datainizio, datafine FROM informazionistage WHERE id_azienda = $id_azienda");
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["id_stage"].">".$record["datainizio"] . " - ".$record["datafine"]."</option>";
-		}
+		$result = $conn->query("SELECT id_stage, datainizio, datafine
+                                FROM informazionistage
+                                WHERE id_azienda = $id_azienda");
+		foreach($result as $record){?>
+			<option value="<?=$record["id_stage"]?>">
+			    <?=$record["datainizio"]?> - <?=$record["datafine"]?>
+            </option>
+		<?php
+        }
 		
 	}elseif(isset($_GET["classe"])){
 		$id_classe = $_GET["classe"];
@@ -34,9 +43,10 @@
 								FROM 	insegnanti, insegna
 								WHERE 	insegnanti.Matricola = insegna.Matricola AND
 										insegna.id_classe = '$id_classe'");
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["matricola"].">".$record["nome"] . " ".$record["cognome"]."</option>";
-		}
+		foreach($result as $record =){?>
+			<option value="<?=$record["matricola"]?>"><?=$record["nome"] . " ".$record["cognome"]?></option>
+		<?php
+        }
 		
 	}elseif(isset($_GET["classe2"])){
 		$id_classe = $_GET["classe2"];
@@ -44,9 +54,11 @@
 								FROM 	studenti as stud, iscritto as i
 								WHERE 	stud.matricola = i.matricola AND
 										i.id_classe = '$id_classe'");
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["matricola"].">".$record["nome"] . " ".$record["cognome"]."</option>";
-		}
+
+		foreach($result as $record){?>
+			<option value="<?=$record["matricola"]?>"><?=$record["nome"] . " ". $record["cognome"]?></option>
+		<?php
+        }
 		
 		//riempimento degli studenti in amministrazione, solo studenti liberi e disponibili
 	}elseif(isset($_GET["classe3"])){
@@ -65,9 +77,10 @@
 				                ");
 
 
-		foreach($result as $record){
-			echo "<option value=".$record["Matricola"].">".$record["Cognome"] . " ".$record["Nome"]."</option>";
-		}
+		foreach($result as $record){?>
+			<option value="<?=$record["Matricola"]?>"><?=$record["Cognome"] . " ".$record["Nome"].?></option>
+		<?php
+        }
 	}
 	?>
 </body>
