@@ -1,7 +1,7 @@
 <html>
 <body>
 <?php
-	require 'connection.php';
+	require __DIR__.'/connection.php';
 	
 	if(isset($_GET["professore"])){
 		$ins_matricola = $_GET["professore"];
@@ -51,20 +51,22 @@
 		//riempimento degli studenti in amministrazione, solo studenti liberi e disponibili
 	}elseif(isset($_GET["classe3"])){
 		$id_classe = $_GET["classe3"];
-		
-		$result = $conn->query("SELECT 	DISTINCT *
-								FROM 
-									(	SELECT stud.matricola, stud.nome, stud.cognome, i.id_classe
-										FROM studenti as stud, Iscritto as i
-										WHERE stud.matricola = i.matricola AND i.id_classe = '$id_classe') as r
-								LEFT JOIN partecipa as p
-								ON p.matricola = r.matricola
-								WHERE p.matricola IS NULL OR now() > p.datafine
-								GROUP BY r.matricola
-								ORDER BY r.cognome, r.nome
-				");
-		while($record = $result->fetch_assoc()){
-			echo "<option value=".$record["matricola"].">".$record["cognome"] . " ".$record["nome"]."</option>";
+
+		$result = $conn->query("select stud.Matricola, stud.Cognome, stud.Nome
+                                from studenti as stud
+                                where stud.Matricola not in
+                                    (
+                                    select stud.Matricola
+                                    from studenti as stud
+                                    left join partecipa
+                                    on stud.Matricola = partecipa.Matricola
+                                    where now() < partecipa.DataFine or partecipa.DataInizio = null
+                                    )
+				                ");
+
+
+		foreach($result as $record){
+			echo "<option value=".$record["Matricola"].">".$record["Cognome"] . " ".$record["Nome"]."</option>";
 		}
 	}
 	?>
