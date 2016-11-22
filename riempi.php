@@ -43,7 +43,7 @@
 								FROM 	insegnanti, insegna
 								WHERE 	insegnanti.Matricola = insegna.Matricola AND
 										insegna.id_classe = '$id_classe'");
-		foreach($result as $record =){?>
+		foreach($result as $record){?>
 			<option value="<?=$record["matricola"]?>"><?=$record["nome"] . " ".$record["cognome"]?></option>
 		<?php
         }
