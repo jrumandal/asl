@@ -44,7 +44,7 @@
 								WHERE 	insegnanti.Matricola = insegna.Matricola AND
 										insegna.id_classe = '$id_classe'");
 		foreach($result as $record){?>
-			<option value="<?=$record["matricola"]?>"><?=$record["nome"] . " ".$record["cognome"]?></option>
+			<option value="<?=$record["matricola"]?>"><?=$record["nome"] ." ". $record["cognome"]?></option>
 		<?php
         }
 		
@@ -56,7 +56,7 @@
 										i.id_classe = '$id_classe'");
 
 		foreach($result as $record){?>
-			<option value="<?=$record["matricola"]?>"><?=$record["nome"] . " ". $record["cognome"]?></option>
+			<option value="<?=$record["matricola"]?>"><?=$record["nome"] ." ". $record["cognome"]?></option>
 		<?php
         }
 		
@@ -78,7 +78,7 @@
 
 
 		foreach($result as $record){?>
-			<option value="<?=$record["Matricola"]?>"><?=$record["Cognome"] . " ".$record["Nome"].?></option>
+			<option value="<?=$record["Matricola"]?>"><?=$record["Cognome"]." ".$record["Nome"]?></option>
 		<?php
         }
 	}
