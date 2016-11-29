@@ -1,5 +1,5 @@
 <?php
-require 'connection.php';
+include_once(__DIR__."/includes/own/php/all_php.php");
 if(isset($_GET["id_stage"])){
 	$id_stage = $_GET["id_stage"];
 

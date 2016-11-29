@@ -1,17 +1,10 @@
+<?php
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
-		<?php require __DIR__.'/essentials/head.php';?>
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="css/main.css" >
-
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
 		<script>
 		$(document).ready(function(){
 			$("#id_specializzazione").change(		
@@ -40,7 +33,7 @@
 			);
 		});
 		</script>
-		<title>Index</title>
+		<title>Aggiunta nuova sessione di stage</title>
 	</head>
 	<body>
 		<div class="container">
@@ -65,12 +58,12 @@
 										<div class="form-group">
 											<select class="form-control" name="id_specializzazione" id="id_specializzazione">
 												<option value="" selected>Specializzazione</option>
-												<?php 
-													require 'connection.php';
+												<?php
 													$result = $conn->query("SELECT * FROM specializzazioni");
-													while($record = $result->fetch_assoc()){
-														echo "<option value=\"".$record["ID_Specializzazione"]."\">".$record["Descrizione"]."</option>";
-													}
+													foreach($result as $record){?>
+														<option value="<?=$record["ID_Specializzazione"]?>"><?=$record["Descrizione"]?></option>
+												<?php
+                                                	}
 												?>
 											</select>
 										</div>
@@ -94,12 +87,12 @@
 										<div class="form-group">
 											<select class="form-control" name="azienda" id="azienda">
 												<option value="" selected>Ente/Azienda</option>
-												<?php 
-													require 'connection.php';
+												<?php
 													$result = $conn->query("SELECT * FROM entiaziende");
-													while($record = $result->fetch_assoc()){
-														echo "<option value=\"".$record["ID_EnteAzienda"]."\">".$record["Nome"]."</option>";
-													}
+													foreach($result as $record){?>
+														<option value="<?=$record["ID_EnteAzienda"]?>"><?=$record["Nome"]?></option>
+                                                <?php
+                                                    }
 												?>
 											</select>
 										</div>

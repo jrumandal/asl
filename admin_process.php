@@ -1,5 +1,5 @@
 <?php
-	require __DIR__.'/connection.php';
+	include_once(__DIR__."/includes/own/php/all_php.php");
 	session_start();
 	if(isset($_SESSION["login"])){
 		if($_SESSION["login"]["rango"]=="Amministratore"){

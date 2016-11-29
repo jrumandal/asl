@@ -1,17 +1,11 @@
+<?php
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
-		<?php require __DIR__.'/essentials/head.php';?>
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="css/main.css" >
-
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
 		<script>
 		$(document).ready(function(){
 			$("#id_specializzazione").change(		
@@ -91,11 +85,11 @@
 											<select class="form-control" name="id_specializzazione" id="id_specializzazione">
 												<option value="" selected>Specializzazione</option>
 												<?php 
-													require 'connection.php';
-													$result = $conn->query("SELECT * FROM specializzazioni");
-													while($record = $result->fetch_assoc()){
-														echo "<option value=\"".$record["ID_Specializzazione"]."\">".$record["Descrizione"]."</option>";
-													}
+                                                    $result = $conn->query("SELECT * FROM specializzazioni");
+													foreach($result as $record){    ?>
+														<option value="<?=$record["ID_Specializzazione"]?>"><?=$record["Descrizione"]?></option>
+												<?
+                                                    }
 												?>
 											</select>
 										</div>
@@ -111,29 +105,29 @@
 												<option value="" selected>Studente</option>
 											</select>
 										</div>
-										
+
 										<div class="form-group">
 											<select class="form-control" name="professore" id="professore" disabled>
 												<option value="" selected>Professore tutor</option>
 											</select>
 										</div>
-										
+
 										<div class="form-group">
 											<select class="form-control" name="stage" id="stage" disabled>
 												<option value="" selected>Stage</option>
 											</select>
 										</div>
-										
+
 										<div class="form-group">
 											<label for="datainiziale">Data iniziale:</label>
-											<input type="date" class="form-control" value="" min="<?php echo date("Y-m-d");?>" id="datainizio" name="datainizio" placedholder="Data iniziale" required>
+											<input type="date" class="form-control" value="" min="<?= date("Y-m-d");?>" id="datainizio" name="datainizio" placedholder="Data iniziale" required>
 										</div>
-										
+
 										<div class="form-group">
 											<label for="datainiziale">Data finale:</label>
 											<input type="date" class="form-control" value=""  id="datafine" name="datafine" placedholder="Data finale" required>
 										</div>
-										
+
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-6 col-sm-offset-3">

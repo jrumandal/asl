@@ -1,21 +1,24 @@
 <?php
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+
 	session_start();
-	require __DIR__.'/connection.php';
-	
+
 	if(isset($_SESSION["login"])){
-		$result = $conn->query("SELECT id_classe FROM iscritto, studenti WHERE studenti.matricola = iscritto.matricola AND studenti.matricola =" .$_SESSION["login"]["matricola"]. "");
+		$result = $conn->query("SELECT id_classe
+                                FROM iscritto, studenti
+                                WHERE studenti.matricola = iscritto.matricola AND
+                                studenti.matricola =" .$_SESSION["login"]["matricola"]."");
 		$record = $result->fetch_assoc();
 		
 		if(isset($_SESSION["quest"]))
 			unset($_SESSION["quest"]);
 	}else
-		header("Loaction: index.php");
+		header('location: '.$baseurl.'home.php');
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<?php require __DIR__.'/essentials/head.php'?>
-		<link rel="stylesheet" type="text/css" href="css/main.css" >
 		<script>
 			$(document).ready(function(){
 				$("#azienda").change(		
@@ -73,11 +76,11 @@
 								<div class="panel panel-body">
 									<div class="form-group">
 										<label for="studente">Alunno/a: </label>
-										<input type="text" class="form-control" value="<?php echo $_SESSION["login"]["nome"] . " " . $_SESSION["login"]["cognome"];?>" id="studente" name="studente" readonly>
+										<input type="text" class="form-control" value="<?= $_SESSION["login"]["nome"] . " " . $_SESSION["login"]["cognome"]?>" id="studente" name="studente" readonly>
 									</div>
 									<div class="form-group">
 										<label for="classe">Della classe: </label>
-										<input type="text" class="form-control" value="<?php echo $record["id_classe"];?>" id="classe" name="classe" readonly>
+										<input type="text" class="form-control" value="<?= $record["id_classe"]?>" id="classe" name="classe" readonly>
 									</div>
 									
 									<div class="form-group">
@@ -101,8 +104,9 @@
 																		WHERE ID_Autovalutazione IS NULL AND
 																		r.matricola = ".$_SESSION["login"]["matricola"]);
 
-												foreach($result as $record){
-													echo "<option value=\"".$record["id_azienda"]."\">".$record["azienda_nome"]."</option>";
+												foreach($result as $record){    ?>
+													<option value="<?=$record["id_azienda"]?>"><?=$record["azienda_nome"]?></option>
+                                            <?php
                                                 }
 											?>
 										</select>

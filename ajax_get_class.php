@@ -1,5 +1,6 @@
 <?php
-	require 'connection.php';
+    //pagina non utilizzata in questo progetto. Prego ignorare il file.
+	include_once(__DIR__."/includes/own/php/all_php.php");
 	
 	$specializzazione = intval($_GET["q"]);
 	

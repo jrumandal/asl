@@ -1,11 +1,11 @@
-<?php require 'connection.php';?>
+<?php
+    //pagina php non utilizzata in questo progetto. Ignorare.
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html">
-		<meta charset="utf-8">
- 	 	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="bootstrap-3.3.6-dist/css/bootstrap.css" type="text/css">
 		<title>Registrazione</title>
 		<script>
 			function showClasses(str) {
@@ -97,55 +97,60 @@
 								break;
 							}
 						}*/
-						
-						// NOME COGNOME
-						$reg_detail.=
-						"<div class=\"row\">".
-							"<div class=\"col-sm-6 form-group\">".
-								"<label for=\"name\" class=\"col-sm-4\">Nome:</label>".
-								"<input type=\"text\" class=\"col-sm-2 form-control\" name=\"nome\" id=\"name\" required>".
-							"</div>".
-							"<div class=\"col-sm-6 form-group\">".
-								"<label for=\"surname\" class=\"col-sm-4\">Cognome:</label>".
-								"<input type=\"text\" class=\"col-sm-2 form-control\" name=\"cognome\" id=\"surname\" required>".
-							"</div>".
-						"</div>";
-						
-						// SPECIALIZZAZIONE
-						$reg_detail.=
-						"<div class=\"row\">".
-								"<div class=\"col-sm-6 form-group\">".
-									"<label for=\"specializzazione\" class=\"col-sm-4\">Specializzazione:</label>".
-									"<select class=\"col-sm-2 form-control\" name=\"specializzazione\" id=\"specializzazione\" onchange=\"showClasses(this.value)\" required>".
-										"<option selected=\"selected\"></option>";
-						
-						$query = "SELECT * FROM Specializzazioni";
-						$result = $conn->query($query);
-						while($row = $result->fetch_assoc()){
-							$reg_detail.= "<option value=".$row["ID_Specializzazione"].">".$row["Descrizione"]."</option>";
-						}
-						
-						$reg_detail.="</select>"."</div>";
-						
-						// CLASSE
-						$reg_detail.=
-						"<div class=\"col-sm-6 form-group\">".
-							"<label for=\"classe\" class=\"col-sm-4\">Classe:</label>".
-							"<select class=\"col-sm-2 form-control\" name=\"classe\" id=\"classe\" required>".
-								"<option selected=\"selected\"></option>";
-						/*
-						$query = "SELECT * FROM Classi";
-						$result = $conn->query($query);
-						while($row = $result->fetch_assoc()){
-							$reg_detail.= "<option value=".$row["ID_Classe"].">".$row["ID_Classe"]."</option>";
-						}
-						*/
-						
-						$reg_detail.="</select>"."</div>"."</div>";
-						
-						echo $reg_detail;
-					?>
-				</fieldset>
+                        ?>
+						<?php // NOME COGNOME?>
+						<div class="row">
+							<div class="col-sm-6 form-group">
+								<label for="name" class="col-sm-4">Nome:</label>
+								<input type="text" class="col-sm-2 form-control" name="nome" id="name" required>
+							</div>
+							<div class="col-sm-6 form-group">
+								<label for="surname" class="col-sm-4">Cognome:</label>
+								<input type="text" class="col-sm-2 form-control" name="cognome" id="surname" required>
+							</div>
+						</div>
+
+						<?php // SPECIALIZZAZIONE ?>
+                        <div class="row">
+            				<div class="col-sm-6 form-group">
+            					<label for="specializzazione" class="col-sm-4">
+            					    Specializzazione:
+                                </label>
+            					<select class="col-sm-2 form-control" name="specializzazione" id="specializzazione" onchange="showClasses(this.value)" required>
+            						<option selected="selected"></option>
+                                <?php
+                        		$query = "SELECT * FROM specializzazioni";
+                        		$result = $conn->query($query);
+
+                        		foreach($result as $row){   ?>
+                                    <option value="<?=$row["ID_Specializzazione"]?>"><?=$row["Descrizione"]?></option>
+                        	    <?php
+                            	}
+                                ?>
+                                </select>
+                            </div>
+
+						<?php // CLASSE?>
+						    <div class="col-sm-6 form-group">
+    							<label for="classe" class="col-sm-4">
+    							    Classe:
+                                </label>
+    							<select class="col-sm-2 form-control" name="classe" id="classe" required>
+    								<option selected="selected"></option>
+
+                            <?
+                            /*
+    						$query = "SELECT * FROM Classi";
+    						$result = $conn->query($query);
+    						while($row = $result->fetch_assoc()){
+    							$reg_detail.= "<option value=".$row["ID_Classe"].">".$row["ID_Classe"]."</option>";
+    						}
+    						*/
+                            ?>
+						        </select>
+                            </div>
+                        </div>
+				    </fieldset>
     			</form>
     		</div>
     	</div>

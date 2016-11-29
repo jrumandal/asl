@@ -1,4 +1,7 @@
 <?php
+    //aggiornamento effettuato, questo non serve piu
+
+
 	//CONNESSIONE AL DATABASE
 	$servername = "localhost";
 	$account = "root";
@@ -9,7 +12,7 @@
 	$db = "asl";
 
 	//$conn = new mysqli($servername, $account, $password, $db);
-	$conn = new mysqli($servername, $account, $password,$db);
+	$conn = new mysqli($servername, $account, $password, $db);
 
 	//se non stabilisce la connessione avverti
 	if($conn->connect_error)

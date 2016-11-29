@@ -1,12 +1,11 @@
 <?php
-        $baseurl = "https://ralphumandal.ddns.net/autoval/";
-		session_start();
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+    	session_start();
 		if(isset($_SESSION["login"])){
 			header('location: '.$baseurl.'home.php');
 			exit;
 		}
-		
-		require_once(__DIR__.'/connection.php');
 
 		//controllo sul bottone, nel caso venga premuto la registrazione...
 		if(isset($_POST["register-submit"])){
@@ -105,7 +104,7 @@
 					$success_login = $stmt->execute();
 
 
-					header("Location: ".$baseurl."/home.php");
+					header("Location: ".$baseurl."home.php");
 					exit;
 
 				}
@@ -118,20 +117,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="it">
-
     <head>
-		<?php require_once __DIR__.'/essentials/head.php';?>
-
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="css/main.css" >
-
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
 		<script>
 			$(document).ready(function(){
 				//AJAX riempimento classe alla selezione della specializzazione
@@ -212,9 +198,7 @@
 										<div class="form-group">
 												<select class="form-control" name="specializzazione" id="specializzazione" tabindex="3">
 													<option value="" selected>Specializzazione</option>
-													<?php
-                                                        require_once(__DIR__.'/connection.php');
-
+													<?php                                          
 														$result = $conn->query("SELECT * FROM specializzazioni");
                                                         foreach($result as $record)
 														//while($record = $result->fetch_assoc())

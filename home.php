@@ -1,16 +1,15 @@
 <?php
-$baseurl = "https://ralphumandal.ddns.net/autoval/";
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+
 	session_start();
 	if(!isset($_SESSION["login"]))
 		header("Location:".$baseurl."index.php");
-	require __DIR__.'/connection.php';
 ?>
 <!DOCTYPE HTML>
 <html>
 	<head>
- 	 	<?php require __DIR__.'/essentials/head.php';?>
 		<title>Home</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css" >
 	</head>
     <body>
     	<div class="container">

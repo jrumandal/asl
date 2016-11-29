@@ -1,14 +1,17 @@
+<?php
+    include_once(__DIR__."/includes/own/php/all_php.php");
+?>
 <html>
 <body>
-<?php
-	require __DIR__.'/connection.php';
-	
+<?php 
 	if(isset($_GET["professore"])){
 		$ins_matricola = $_GET["professore"];
 		$result = $conn->query("SELECT s.id_stage, ea.nome, tutoraziendale, attivitasettore
 								FROM stage as s, entiaziende as ea
 								WHERE s.ID_EnteAzienda = ea.id_enteazienda AND matricolatutorinterno = '$ins_matricola'");
-		
+
+        if($result->num_rows ==0)
+            echo "<option>L'insegnante non è assegnata ad alcuna azienda.</option>";
 		foreach($result as $record){?>
 			<option value="<?=$record["id_stage"]?>">
 			    <?=$record["nome"]?> - <?=$record["attivitasettore"]?> - <?=$record["tutoraziendale"]?>
@@ -64,19 +67,22 @@
 	}elseif(isset($_GET["classe3"])){
 		$id_classe = $_GET["classe3"];
 
-		$result = $conn->query("select stud.Matricola, stud.Cognome, stud.Nome
-                                from studenti as stud
-                                where stud.Matricola not in
-                                    (
-                                    select stud.Matricola
-                                    from studenti as stud
-                                    left join partecipa
-                                    on stud.Matricola = partecipa.Matricola
-                                    where now() < partecipa.DataFine or partecipa.DataInizio = null
-                                    )
-				                ");
+		$result = $conn->query("select  stud.Matricola, stud.Cognome, stud.Nome
+                                from    studenti as stud, iscritto as i
+                                where   stud.Matricola = i.Matricola AND
+                                        i.id_classe = '$id_classe' AND
+                                        stud.Matricola not in
+                                            (
+                                            select stud.Matricola
+                                            from studenti as stud
+                                            left join partecipa
+                                            on stud.Matricola = partecipa.Matricola
+                                            where now() < partecipa.DataFine or partecipa.DataInizio = null
+                                            )"
+                                );
 
-
+        if($result->num_rows==0)
+            echo "<option>Non ci sono studenti disponibili</option>";
 		foreach($result as $record){?>
 			<option value="<?=$record["Matricola"]?>"><?=$record["Cognome"]." ".$record["Nome"]?></option>
 		<?php

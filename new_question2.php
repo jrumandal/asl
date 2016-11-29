@@ -1,5 +1,5 @@
 <?php
-    $baseurl = "https://ralphumandal.ddns.net/autoval/";
+    include_once(__DIR__."/includes/own/php/all_php.php");
 	if(!isset($_POST["btn-continue"])
 			||!isset($_POST["studente"])
 			||!isset($_POST["classe"])
@@ -11,7 +11,7 @@
 		header('location: '.$baseurl.'home.php');
 		exit;
 	}
-	
+
 	session_start();
 	
 	$_SESSION["quest"]["id_azienda"] = $_POST["periodo"];
@@ -20,8 +20,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<?php require __DIR__.'/essentials/head.php'?>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+        <title>Pagina 2 del questionario</title>
   	</head>
   	<body>
   		<div class="container">
@@ -39,7 +38,7 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<form id="" action="/process.php" method="post" role="form">
-									<?php require __DIR__.'load_questions.php';?>
+									<?php require __DIR__.'/load_questions.php';?>
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">

@@ -1,10 +1,11 @@
+<?php
+    include_once(__DIR__."/includes/own/php/all_php.php");
+    include_once(__DIR__."/includes/doc_header.php");
+?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html">
-		<meta charset="utf-8">
- 	 	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="bootstrap-3.3.6-dist/css/bootstrap.css" type="text/css">
 		<style>
 			body{background-color: lightblue;}
 			textarea.noresize{resize:none;}
@@ -26,7 +27,7 @@
     					//per salvare l'id dell'autovalutazione, da completare
     					//echo "<input type=hidden value=".$POST["id_quest"]."name=\"id_quest\">";
     				?>
-    				<?php include 'load_questions.php'?>
+    				<?php include_once( __DIR__.'/load_questions.php');?>
     				<div class="row">
     					<div class="col-sm-1"></div>
     					<div class="col-sm-10">
@@ -35,9 +36,7 @@
     					<div class="col-sm-1"></div>
     				</div>
     			</form>
-    			
     		</div>
-    		
     	</div>
     </body>
     <script>
