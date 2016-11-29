@@ -4,7 +4,7 @@
 	session_start();
 
 	if(!isset($_POST["questionario-submit"])||!isset($_SESSION["login"])||!isset($_SESSION["quest"])){
-		header("Location:".$baseurl."home.php");
+		header("Location:".$base_url."home.php");
 		exit;
 	}
 ?>
@@ -46,7 +46,7 @@
 			for($i=1; $i<=$n_domande; $i++)
 				if(!isset($_POST["q$i"])){
 					die("<div class=\"alert alert-danger\"><strong>Attenzione!</strong> Errore di compilazione questionario. Attendere 5secondi...</div>");
-					header("refresh:3; url=".$baseurl."new_question.php");
+					header("refresh:3; url=".$base_url."new_question.php");
 				}
 
 			//inserimento delle domande una ad una
@@ -80,7 +80,7 @@
 			unset($_SESSION["quest"]);
 			$GLOBALS["msg"]= "<div class=\"alert alert-success\"><strong>Completato!</strong> Hai completato correttamente il questionario. Attendere 5secondi...</div>";
 
-			header("Location:".$baseurl."home.php");
+			header("Location:".$base_url."home.php");
 		?>
 		</div>
 	</body>

@@ -14,7 +14,7 @@
 		if(isset($_SESSION["quest"]))
 			unset($_SESSION["quest"]);
 	}else
-		header('location: '.$baseurl.'home.php');
+		header('location: '.$base_url.'home.php');
 ?>
 <!DOCTYPE HTML>
 <html>

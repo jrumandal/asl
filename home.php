@@ -4,7 +4,7 @@
 
 	session_start();
 	if(!isset($_SESSION["login"]))
-		header("Location:".$baseurl."index.php");
+		header("Location: ".$base_url."index.php");
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -77,7 +77,7 @@
 									<a href="#" class="active">Azioni</a>
 								</div>
 								<div class="col-xs-6">
-									<a href="<?=$baseurl;?>logout.php" class="warning" style="color: red">Logout</a>
+									<a href="<?=$base_url;?>logout.php" class="warning" style="color: red">Logout</a>
 								</div>								
 							</div>
 							<hr>
@@ -85,7 +85,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-sm-12">
-									<form id="login-form" action="<?=$baseurl;?>action.php" method="post" role="form" style="display: block;">
+									<form id="login-form" action="<?=$base_url;?>action.php" method="post" role="form" style="display: block;">
 										<div class="row">
 											<div class="col-sm-12" >
 												<?php

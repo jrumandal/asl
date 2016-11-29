@@ -7,4 +7,4 @@
 		session_destroy();
 	}
 	$msg = "<div class='success'>Disconnesso con successo</div>";
-	header("Location:".$baseurl." index.php");
+	header("Location: ".$base_url."index.php");

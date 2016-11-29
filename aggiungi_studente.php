@@ -88,7 +88,7 @@
                                                     $result = $conn->query("SELECT * FROM specializzazioni");
 													foreach($result as $record){    ?>
 														<option value="<?=$record["ID_Specializzazione"]?>"><?=$record["Descrizione"]?></option>
-												<?
+												<?php
                                                     }
 												?>
 											</select>

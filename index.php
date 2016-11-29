@@ -3,7 +3,7 @@
     include_once(__DIR__."/includes/doc_header.php");
     	session_start();
 		if(isset($_SESSION["login"])){
-			header('location: '.$baseurl.'home.php');
+			header('location: '.$base_url.'home.php');
 			exit;
 		}
 
@@ -104,7 +104,7 @@
 					$success_login = $stmt->execute();
 
 
-					header("Location: ".$baseurl."home.php");
+					header("Location: ".$base_url."home.php");
 					exit;
 
 				}
@@ -198,7 +198,7 @@
 										<div class="form-group">
 												<select class="form-control" name="specializzazione" id="specializzazione" tabindex="3">
 													<option value="" selected>Specializzazione</option>
-													<?php                                          
+													<?php
 														$result = $conn->query("SELECT * FROM specializzazioni");
                                                         foreach($result as $record)
 														//while($record = $result->fetch_assoc())

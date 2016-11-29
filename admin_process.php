@@ -39,12 +39,12 @@
 				$GLOBALS["msg"] = "<div class=\"success\">Studente inserito con successo</div>";
 
 			}
-            header('location: '.$baseurl.'home.php');
+            header('location: '.$base_url.'home.php');
 		}else{
 			$GLOBALS["msg"] ="<div class=\"danger\">Non hai i permetti adatti per inserire un nuovo stage</div>";
         }
-        header('location: '.$baseurl.'home.php');
+        header('location: '.$base_url.'home.php');
 	}else{
-		header('location: '.$baseurl.'home.php');
+		header('location: '.$base_url.'home.php');
 	}
 	
