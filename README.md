@@ -13,3 +13,5 @@ I dati vengono salvati in un database "complesso" sviluppato attraverso uno stud
 Il DBMS utilizzato è MySQL al quale viene emesso la base di dati.
 
 Per info jrumandal@gmail.com
+
+Trovate la documentazione qui. https://github.com/jrumandal/asl/blob/master/Tesina201516-3.pdf
