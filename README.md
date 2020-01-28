@@ -1,4 +1,8 @@
-# asl
+
+
+# Alternanza Scuola - Lavoro project
+[![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
+
 Tesina 2015/16
 
 Il progetto contiene lo sviluppo in core di un applicazione web.
@@ -15,3 +19,4 @@ Il DBMS utilizzato è MySQL al quale viene emesso la base di dati.
 Per info jrumandal@gmail.com
 
 Trovate la documentazione qui. https://github.com/jrumandal/asl/blob/master/Tesina201516-3.pdf
+
